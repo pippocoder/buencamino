@@ -370,7 +370,55 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
   .page-body{ padding:1.5rem .85rem 4rem; }
   .hero{ padding:1.75rem .85rem 1.5rem; }
 }
-</style></style>
+
+/* ── GALERIE PHOTOS ─────────────────────────────────────────── */
+.photo-gallery{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:4px;
+  margin:2rem 0 2.5rem;
+  background:var(--ink);
+  width:100%;
+}
+/* Technique padding-bottom pour ratio fixe — compatible tous navigateurs mobiles */
+.photo-gallery a{
+  display:block;
+  position:relative;
+  width:100%;
+  padding-bottom:75%; /* ratio 4/3 */
+  overflow:hidden;
+  background:#e8e4dc;
+}
+.photo-gallery a img{
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .3s ease;
+}
+.photo-gallery a:hover img{
+  transform:scale(1.04);
+}
+.gallery-caption{
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.08em;
+  text-align:center;
+  margin:-1.5rem 0 2.5rem;
+  font-style:italic;
+}
+@media(max-width:768px){
+  .photo-gallery{
+    grid-template-columns:repeat(2,1fr);
+    gap:3px;
+    margin:1.5rem 0 2rem;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -624,6 +672,22 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
       <div class="stat"><div class="stat-lbl">Arrivée</div><div class="stat-val" style="color:var(--gold);font-size:1.1rem">Llanes</div><div class="stat-u">Asturies</div></div>
     </div>
   </div>
+
+  <!-- Galerie optA -->
+  <div class="photo-gallery">
+    <a href="https://argazki.irekia.euskadi.eus/photos/p740/20020601_01_0005.jpg" target="_blank" rel="noopener"><img src="https://argazki.irekia.euskadi.eus/photos/p740/20020601_01_0005.jpg" alt="Playa de La Concha, San Sebastián" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.surf-escape.com/wp-content/uploads/2024/10/jarno-colijn-WfZu11Kg6Jk-unsplash-scaled.jpg" target="_blank" rel="noopener"><img src="https://www.surf-escape.com/wp-content/uploads/2024/10/jarno-colijn-WfZu11Kg6Jk-unsplash-scaled.jpg" alt="Zarautz — capitale basque du surf" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://akelarre.net/wp-content/uploads/2020/05/ruta-del-flysch-pais-vasco.jpg" target="_blank" rel="noopener"><img src="https://akelarre.net/wp-content/uploads/2020/05/ruta-del-flysch-pais-vasco.jpg" alt="Falaises de flysch, Zumaia — UNESCO" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://cms.guggenheim-bilbao.eus/uploads/2019/05/el-edificio-guggenheim-bilbao-1.jpg" target="_blank" rel="noopener"><img src="https://cms.guggenheim-bilbao.eus/uploads/2019/05/el-edificio-guggenheim-bilbao-1.jpg" alt="Guggenheim Bilbao — Frank Gehry, 1997" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://res.cloudinary.com/hello-tickets/image/upload/c_limit,f_auto,q_auto,w_768/v1676578627/post_images/Bilbao-315/Night/39313582331_806a653e5b_o_Cropped.jpg" target="_blank" rel="noopener"><img src="https://res.cloudinary.com/hello-tickets/image/upload/c_limit,f_auto,q_auto,w_768/v1676578627/post_images/Bilbao-315/Night/39313582331_806a653e5b_o_Cropped.jpg" alt="Casco Viejo de Bilbao" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.surfcantabria.com/wp-content/uploads/2023/01/PLAYA-DE-LAREDO.jpg" target="_blank" rel="noopener"><img src="https://www.surfcantabria.com/wp-content/uploads/2023/01/PLAYA-DE-LAREDO.jpg" alt="Plage de La Salvé, Laredo" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/dc/c6/b4/playa-primera-de-el-sardinero.jpg?w=1200&h=-1&s=1" target="_blank" rel="noopener"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/dc/c6/b4/playa-primera-de-el-sardinero.jpg?w=1200&h=-1&s=1" alt="Playa del Sardinero, Santander" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://lh5.googleusercontent.com/-pgHiuqY6YKU/VRkUUmwN51I/AAAAAAAAGWU/iOv4jRAg8Gk/s600/El_Capricho_de_Gaudi_Comillas.jpg" target="_blank" rel="noopener"><img src="https://lh5.googleusercontent.com/-pgHiuqY6YKU/VRkUUmwN51I/AAAAAAAAGWU/iOv4jRAg8Gk/s600/El_Capricho_de_Gaudi_Comillas.jpg" alt="El Capricho de Gaudí, Comillas — 1885" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/26/ad/6a/castillo-del-rey.jpg?w=1200&h=-1&s=1" target="_blank" rel="noopener"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/26/ad/6a/castillo-del-rey.jpg?w=1200&h=-1&s=1" alt="San Vicente de la Barquera" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://es.kampaoh.com/wp-content/uploads/2024/08/Portada-5.png" target="_blank" rel="noopener"><img src="https://es.kampaoh.com/wp-content/uploads/2024/08/Portada-5.png" alt="Ribadesella — estuaire de la Sella" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+  </div>
+  <p class="gallery-caption">San Sebastián · Zarautz · Flysch · Bilbao · Laredo · Santander · Comillas · Ribadesella</p>
+
   <div class="page-body">
     <p class="sl">La route</p>
     <div class="tl-wrap">
@@ -893,6 +957,22 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
       <div class="stat"><div class="stat-lbl">Fin</div><div class="stat-val" style="color:var(--gold);font-size:1.1rem">Vigo</div><div class="stat-u">Îles Cíes</div></div>
     </div>
   </div>
+
+  <!-- Galerie optB -->
+  <div class="photo-gallery">
+    <a href="https://external-preview.redd.it/rows-upon-rows-of-colorful-houses-in-the-historic-ribeira-v0-x0OXJcYjMFoj9U-WQqsN1x36fltOb_t8eaTkdI9jfzE.jpeg?width=640&crop=smart&auto=webp&s=a3a4aadba3abe7d1c89289dca93b493997688aaa" target="_blank" rel="noopener"><img src="https://external-preview.redd.it/rows-upon-rows-of-colorful-houses-in-the-historic-ribeira-v0-x0OXJcYjMFoj9U-WQqsN1x36fltOb_t8eaTkdI9jfzE.jpeg?width=640&crop=smart&auto=webp&s=a3a4aadba3abe7d1c89289dca93b493997688aaa" alt="Ribeira, Porto" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://images.resosys.com/destinations/12/articles/dom-luis-bridge_en/inline/1680177434-screen_2x-2023-02-24t090947.776.jpg" target="_blank" rel="noopener"><img src="https://images.resosys.com/destinations/12/articles/dom-luis-bridge_en/inline/1680177434-screen_2x-2023-02-24t090947.776.jpg" alt="Pont Dom Luís, Porto" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://cdn-imgix.headout.com/media/images/60af6d1100f168ac9ee0b94f3332eee9-LivrariaLelloisthemostbeautifulbookshopintheworld.Thisbeautifulstreetshopisvisitedforhundredsofpeopleeveryday.jpg?auto=compress%2Cformat&w=900&h=562.5&q=90&ar=16%3A10&crop=faces%2Ccenter&fit=crop" target="_blank" rel="noopener"><img src="https://cdn-imgix.headout.com/media/images/60af6d1100f168ac9ee0b94f3332eee9-LivrariaLelloisthemostbeautifulbookshopintheworld.Thisbeautifulstreetshopisvisitedforhundredsofpeopleeveryday.jpg?auto=compress%2Cformat&w=900&h=562.5&q=90&ar=16%3A10&crop=faces%2Ccenter&fit=crop" alt="Livraria Lello, Porto — 1906" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://images.trvl-media.com/place/182257/52837c9c-a8e1-4595-93ff-19119342de52.jpg" target="_blank" rel="noopener"><img src="https://images.trvl-media.com/place/182257/52837c9c-a8e1-4595-93ff-19119342de52.jpg" alt="Sanctuaire de Santa Luzia, Viana do Castelo" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.cm-caminha.pt/cmcaminha/uploads/news/image/3202/364012003_693515339486249_8535804689650692269_n__1_.jpg" target="_blank" rel="noopener"><img src="https://www.cm-caminha.pt/cmcaminha/uploads/news/image/3202/364012003_693515339486249_8535804689650692269_n__1_.jpg" alt="Caminha — dernier village du Portugal" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://admin.mardeons.es/media/rodas.png" target="_blank" rel="noopener"><img src="https://admin.mardeons.es/media/rodas.png" alt="Playa de Rodas, Îles Cíes" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://visitariasbaixas.com/wp-content/uploads/2025/08/Guia-turistica-de-la-Ria-de-Vigo.webp" target="_blank" rel="noopener"><img src="https://visitariasbaixas.com/wp-content/uploads/2025/08/Guia-turistica-de-la-Ria-de-Vigo.webp" alt="Ría de Vigo" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://spanish-fiestas.com/wp-content/uploads/2016/10/640-vigo-market-01.jpg" target="_blank" rel="noopener"><img src="https://spanish-fiestas.com/wp-content/uploads/2016/10/640-vigo-market-01.jpg" alt="Mercado de la Pedra, Vigo — huîtres dans la rue" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://paradores.es/sites/default/files/images/Parador%20de%20Baiona%20144_1.jpg" target="_blank" rel="noopener"><img src="https://paradores.es/sites/default/files/images/Parador%20de%20Baiona%20144_1.jpg" alt="Parador de Baiona" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://maisonsportugal.com/wp-content/uploads/2024/06/Vue-aerienne-avec-drone-de-la-plage-de-Moledo.-Portugal.jpg.webp" target="_blank" rel="noopener"><img src="https://maisonsportugal.com/wp-content/uploads/2024/06/Vue-aerienne-avec-drone-de-la-plage-de-Moledo.-Portugal.jpg.webp" alt="Plage de Moledo — embouchure du Miño" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+  </div>
+  <p class="gallery-caption">Porto · Viana do Castelo · Caminha · Îles Cíes · Vigo · Moledo</p>
+
   <div class="page-body">
     <p class="sl">La route</p>
     <div class="tl-wrap">
@@ -1138,6 +1218,22 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
       <div class="stat"><div class="stat-lbl">Arrivée</div><div class="stat-val" style="color:var(--gold);font-size:1.1rem">Santiago</div><div class="stat-u">Compostela ★</div></div>
     </div>
   </div>
+
+  <!-- Galerie optC -->
+  <div class="photo-gallery">
+    <a href="https://external-preview.redd.it/rows-upon-rows-of-colorful-houses-in-the-historic-ribeira-v0-x0OXJcYjMFoj9U-WQqsN1x36fltOb_t8eaTkdI9jfzE.jpeg?width=640&crop=smart&auto=webp&s=a3a4aadba3abe7d1c89289dca93b493997688aaa" target="_blank" rel="noopener"><img src="https://external-preview.redd.it/rows-upon-rows-of-colorful-houses-in-the-historic-ribeira-v0-x0OXJcYjMFoj9U-WQqsN1x36fltOb_t8eaTkdI9jfzE.jpeg?width=640&crop=smart&auto=webp&s=a3a4aadba3abe7d1c89289dca93b493997688aaa" alt="Ribeira, Porto — départ du Portugués côtier" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://images.resosys.com/destinations/12/articles/dom-luis-bridge_en/inline/1680177434-screen_2x-2023-02-24t090947.776.jpg" target="_blank" rel="noopener"><img src="https://images.resosys.com/destinations/12/articles/dom-luis-bridge_en/inline/1680177434-screen_2x-2023-02-24t090947.776.jpg" alt="Pont Dom Luís, Porto" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://beachatlas.s3.us-east-2.amazonaws.com/ofir.jpg" target="_blank" rel="noopener"><img src="https://beachatlas.s3.us-east-2.amazonaws.com/ofir.jpg" alt="Plage d'Ofir, Esposende" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.turismocastillayleon.com/cm/images?locale=es_ES&idMmedia=220994" target="_blank" rel="noopener"><img src="https://www.turismocastillayleon.com/cm/images?locale=es_ES&idMmedia=220994" alt="Viana do Castelo" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://images.winalist.com/blog/wp-content/uploads/2025/06/04095243/adobestock-908545391-1500x1001.jpeg" target="_blank" rel="noopener"><img src="https://images.winalist.com/blog/wp-content/uploads/2025/06/04095243/adobestock-908545391-1500x1001.jpeg" alt="Pontevedra — centre historique galicien" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.fundacionjacobea.org/wp-content/uploads/2018/08/IMG_3728.jpg" target="_blank" rel="noopener"><img src="https://www.fundacionjacobea.org/wp-content/uploads/2018/08/IMG_3728.jpg" alt="Cathédrale de Santiago de Compostela" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://media02.stockfood.com/largepreviews/MjE4MDA4ODA1MQ==/70325421-Plaza-Immaculada-cathedral-of-Santiago-de-Compostela-Camino-Frances-Way-of-St-James-Camino-de-Santiago.jpg" target="_blank" rel="noopener"><img src="https://media02.stockfood.com/largepreviews/MjE4MDA4ODA1MQ==/70325421-Plaza-Immaculada-cathedral-of-Santiago-de-Compostela-Camino-Frances-Way-of-St-James-Camino-de-Santiago.jpg" alt="Place de l'Obradoiro — arrivée des pèlerins" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://as2.ftcdn.net/jpg/06/13/53/51/1000_F_613535143_DMPzn8cbjRxHd3NXqfoixz6O4Kyhj29W.jpg" target="_blank" rel="noopener"><img src="https://as2.ftcdn.net/jpg/06/13/53/51/1000_F_613535143_DMPzn8cbjRxHd3NXqfoixz6O4Kyhj29W.jpg" alt="Santiago de Compostela vue aérienne" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://stingynomads.com/wp-content/uploads/2024/07/Camino-sign-coastal-route.jpg.webp" target="_blank" rel="noopener"><img src="https://stingynomads.com/wp-content/uploads/2024/07/Camino-sign-coastal-route.jpg.webp" alt="Le Camino Portugués côtier" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://images.winalist.com/blog/wp-content/uploads/2025/06/10131125/adobestock-141869933.jpeg" target="_blank" rel="noopener"><img src="https://images.winalist.com/blog/wp-content/uploads/2025/06/10131125/adobestock-141869933.jpeg" alt="Padrón — piments et Rosalía de Castro" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+  </div>
+  <p class="gallery-caption">Porto · Esposende · Viana · Pontevedra · Santiago de Compostela</p>
+
   <div class="page-body">
     <p class="sl">La route</p>
     <div class="tl-wrap">
@@ -1276,6 +1372,22 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
       <div class="stat"><div class="stat-lbl">Arrivée</div><div class="stat-val" style="color:var(--gold);font-size:1.1rem">Oviedo</div><div class="stat-u">Asturies</div></div>
     </div>
   </div>
+
+  <!-- Galerie optD -->
+  <div class="photo-gallery">
+    <a href="https://media.istockphoto.com/id/1481045385/es/foto/vista-a%C3%A9rea-con-drones-del-palacio-de-la-magdalena-o-palacio-de-la-magdalena-en-la-pen%C3%ADnsula.jpg?s=612x612&w=0&k=20&c=SmpIrkC8gMFdwi6A6Z2NDD-P2ekhGCkG22jlZvjvbVw=" target="_blank" rel="noopener"><img src="https://media.istockphoto.com/id/1481045385/es/foto/vista-a%C3%A9rea-con-drones-del-palacio-de-la-magdalena-o-palacio-de-la-magdalena-en-la-pen%C3%ADnsula.jpg?s=612x612&w=0&k=20&c=SmpIrkC8gMFdwi6A6Z2NDD-P2ekhGCkG22jlZvjvbVw=" alt="Palais de la Magdalena, Santander" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/dc/c6/b4/playa-primera-de-el-sardinero.jpg?w=1200&h=-1&s=1" target="_blank" rel="noopener"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/dc/c6/b4/playa-primera-de-el-sardinero.jpg?w=1200&h=-1&s=1" alt="Playa del Sardinero, Santander" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://lh5.googleusercontent.com/-pgHiuqY6YKU/VRkUUmwN51I/AAAAAAAAGWU/iOv4jRAg8Gk/s600/El_Capricho_de_Gaudi_Comillas.jpg" target="_blank" rel="noopener"><img src="https://lh5.googleusercontent.com/-pgHiuqY6YKU/VRkUUmwN51I/AAAAAAAAGWU/iOv4jRAg8Gk/s600/El_Capricho_de_Gaudi_Comillas.jpg" alt="El Capricho de Gaudí, Comillas" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/26/ad/6a/castillo-del-rey.jpg?w=1200&h=-1&s=1" target="_blank" rel="noopener"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/26/ad/6a/castillo-del-rey.jpg?w=1200&h=-1&s=1" alt="San Vicente de la Barquera" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://alegria-realestate.com/wp-content/uploads/2025/11/llanes_asturias_1-min.jpg" target="_blank" rel="noopener"><img src="https://alegria-realestate.com/wp-content/uploads/2025/11/llanes_asturias_1-min.jpg" alt="Llanes — vieille ville médiévale" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://thumbs.dreamstime.com/b/lastres-fishing-village-beach-asturias-spain-europe-351115553.jpg" target="_blank" rel="noopener"><img src="https://thumbs.dreamstime.com/b/lastres-fishing-village-beach-asturias-spain-europe-351115553.jpg" alt="Lastres — village de pêcheurs sur falaise" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.asturiasenimagenes.com/fotgij_001/pic_03-A.jpg" target="_blank" rel="noopener"><img src="https://www.asturiasenimagenes.com/fotgij_001/pic_03-A.jpg" alt="Gijón — plage de San Lorenzo" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://catedraldeoviedo.com/wp-content/uploads/slider/cache/f8758c92a8060f26e0cbaacc65865245/slide-torre-catedral-de-oviedo-fachada.webp" target="_blank" rel="noopener"><img src="https://catedraldeoviedo.com/wp-content/uploads/slider/cache/f8758c92a8060f26e0cbaacc65865245/slide-torre-catedral-de-oviedo-fachada.webp" alt="Cathédrale d'Oviedo — patrimoine UNESCO" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://www.pryconsa.es/media/2024/08/costa-verde-asturias-768x511.jpg" target="_blank" rel="noopener"><img src="https://www.pryconsa.es/media/2024/08/costa-verde-asturias-768x511.jpg" alt="Costa Verde, Asturies" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+    <a href="https://es.kampaoh.com/wp-content/uploads/2024/08/Portada-5.png" target="_blank" rel="noopener"><img src="https://es.kampaoh.com/wp-content/uploads/2024/08/Portada-5.png" alt="Ribadesella — côte asturienne" loading="eager" onerror="this.parentElement.style.display='none'"></a>
+  </div>
+  <p class="gallery-caption">Santander · Comillas · Llanes · Lastres · Gijón · Oviedo · Costa Verde</p>
+
   <div class="page-body">
     <p class="sl">La route</p>
     <div class="tl-wrap">
