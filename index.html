@@ -48,13 +48,24 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .sn-foot{margin-top:auto;padding:1.5rem 1.5rem 0;font-family:'Inter',sans-serif;font-size:10px;color:rgba(247,245,240,.18);line-height:1.6}
 
 /* MOBILE NAV */
-.mob-hdr{display:none;position:sticky;top:0;z-index:300;background:var(--dark);padding:.9rem 1.1rem;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);min-height:54px}
-.mob-logo{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:1rem;letter-spacing:.01em}
-.mob-logo small{font-family:'Inter',sans-serif;font-style:normal;font-size:9px;color:rgba(247,245,240,.3);display:block;letter-spacing:.1em;margin-top:1px}
-.burger{background:none;border:1px solid rgba(255,255,255,.15);border-radius:4px;cursor:pointer;padding:8px 9px;display:flex;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;min-width:40px;min-height:40px;justify-content:center;align-items:center}
-.burger span{display:block;width:20px;height:2px;background:rgba(247,245,240,.85);border-radius:1px}
-.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.mob-hdr{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--dark);height:52px;padding:0 1rem;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.mob-logo{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:.95rem}
+.burger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;min-width:44px;min-height:44px;justify-content:center;align-items:center}
+.burger span{display:block;width:20px;height:2px;background:rgba(247,245,240,.8);border-radius:1px;transition:transform .25s,opacity .25s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150}
 .nav-overlay.on{display:block}
+/* Mobile drawer — slides down from top bar */
+.mob-drawer{position:fixed;top:52px;left:0;right:0;background:var(--dark);z-index:299;border-bottom:1px solid rgba(255,255,255,.1);overflow:hidden;max-height:0;transition:max-height .3s ease}
+.mob-drawer.open{max-height:80vh;overflow-y:auto}
+.mob-drawer-inner{padding:.75rem 0 1.5rem}
+.mob-drawer .nav-sec-lbl{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,245,240,.22);padding:.75rem 1.25rem .35rem}
+.mob-drawer .mob-nav-btn{display:block;width:100%;background:none;border:none;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(247,245,240,.65);font-family:'Inter',sans-serif;font-size:14.5px;padding:.85rem 1.25rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s,color .1s}
+.mob-drawer .mob-nav-btn:last-child{border-bottom:none}
+.mob-drawer .mob-nav-btn:active,.mob-drawer .mob-nav-btn.active{background:rgba(232,184,75,.08);color:var(--gold)}
+.mob-drawer .mob-nav-btn.highlight{color:var(--gold);font-weight:500}
 
 /* MAIN */
 .main-content{margin-left:var(--nav-w);flex:1;min-width:0}
@@ -207,13 +218,12 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 /* RESPONSIVE */
 @media(max-width:768px){
 
-  /* ── Navigation ── */
-  .sidenav{transform:translateX(-100%);width:82vw;max-width:300px}
-  .sidenav.open{transform:translateX(0)}
-  .mob-hdr{display:flex}
+  /* ── Navigation mobile : sidebar cachée, main sans marge ── */
+  .sidenav{display:none}
   .main-content{margin-left:0}
-  .nav-link{font-size:14px;padding:.55rem 0}
-  .nav-sec-lbl{font-size:10px}
+  /* Pages need top padding to clear fixed mob-hdr */
+  .hero{padding-top:calc(2rem + 52px)}
+  #page-landing .hero{padding-top:0}
 
   /* ── Landing ── */
   #page-landing{padding:2rem 1.25rem;gap:0}
@@ -321,42 +331,7 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
   .cmp-body{padding:1.5rem .85rem 6rem}
 }
 
-/* ── Bottom Tab Bar (mobile only) ── */
-.bottom-nav{
-  display:none;
-  position:fixed;
-  bottom:0;left:0;right:0;
-  background:var(--dark);
-  border-top:1px solid rgba(255,255,255,.1);
-  z-index:250;
-  padding:0;
-  padding-bottom:env(safe-area-inset-bottom);
-}
-.bottom-nav-inner{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  height:54px;
-}
-.bn-btn{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:none;border:none;color:rgba(247,245,240,.4);
-  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:500;
-  letter-spacing:.05em;text-transform:uppercase;
-  gap:4px;cursor:pointer;padding:4px 2px;
-  -webkit-tap-highlight-color:transparent;
-  transition:color .15s;
-}
-.bn-btn svg{width:18px;height:18px;stroke-width:1.8;flex-shrink:0}
-.bn-btn.active{color:var(--gold)}
-.bn-btn:active{color:var(--gold);opacity:.8}
-
-@media(max-width:768px){
-  .bottom-nav{display:block}
-  /* Add bottom padding to all pages so content clears the tab bar */
-  .page-body{padding-bottom:7rem !important}
-  .bsec{margin-bottom:0}
-  .cmp-body{padding-bottom:7rem !important}
-}
+/* bottom-nav supprimé — navigation via drawer uniquement sur mobile */
 </style>
 </head>
 <body>
@@ -373,35 +348,51 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 </div>
 
 <!-- INNER WRAPPER -->
+<!-- Mobile top bar — hors du layout flex -->
+<div class="mob-hdr" id="mobHdr" style="display:none">
+  <span class="mob-logo">Buen Camino</span>
+  <button class="burger" id="burgerBtn" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+</div>
+
+<!-- Mobile drawer — hors du layout flex -->
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-drawer-inner">
+    <div class="nav-sec-lbl">Le Chemin</div>
+    <button class="mob-nav-btn" onclick="showPage('intro');closeDrawer()">Introduction</button>
+    <button class="mob-nav-btn" onclick="showPage('pratique');closeDrawer()">Guide pratique</button>
+    <div class="nav-sec-lbl" style="margin-top:.5rem">Les itinéraires</div>
+    <button class="mob-nav-btn" onclick="showPage('optA');closeDrawer()">Option A — Norte basque</button>
+    <button class="mob-nav-btn" onclick="showPage('optB');closeDrawer()">Option B — Côte portugaise</button>
+    <button class="mob-nav-btn highlight" onclick="showPage('optC');closeDrawer()">Option C — Santiago ★</button>
+    <button class="mob-nav-btn" onclick="showPage('optD');closeDrawer()">Option D — Cantabrie &amp; Asturies</button>
+    <div class="nav-sec-lbl" style="margin-top:.5rem">Décision</div>
+    <button class="mob-nav-btn" onclick="showPage('compare');closeDrawer()">Comparatif des 4 options</button>
+  </div>
+</div>
+<div class="nav-overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- inner-wrap : flex container desktop (sidenav + main-content uniquement) -->
 <div id="inner-wrap" style="display:none">
 
-<!-- Mobile header -->
-<div class="mob-hdr">
-  <span class="mob-logo">Buen Camino<small>Nick · Soub · Pip</small></span>
-  <button class="burger" onclick="toggleNav()"><span></span><span></span><span></span></button>
-</div>
-<div class="nav-overlay" id="overlay" onclick="closeNav()"></div>
-
-<!-- Sidebar -->
+<!-- Desktop sidebar -->
 <nav class="sidenav" id="sidenav">
   <div class="sn-logo">Buen Camino<small>Nick · Soub · Pip · 2026</small></div>
   <div class="nav-sec">
     <div class="nav-sec-lbl">Le Chemin</div>
-    <button class="nav-link" onclick="showPage('intro');closeNav()">Introduction</button>
-    <button class="nav-link" onclick="showPage('pratique');closeNav()">Guide pratique</button>
+    <button class="nav-link" onclick="showPage('intro')">Introduction</button>
+    <button class="nav-link" onclick="showPage('pratique')">Guide pratique</button>
   </div>
   <div class="nav-sec">
     <div class="nav-sec-lbl">Les itinéraires</div>
-    <button class="nav-link" onclick="showPage('optA');closeNav()">Option A — Norte basque</button>
-    <button class="nav-link" onclick="showPage('optB');closeNav()">Option B — Côte portugaise</button>
-    <button class="nav-link" onclick="showPage('optC');closeNav()">Option C — Santiago ★</button>
-    <button class="nav-link" onclick="showPage('optD');closeNav()">Option D — Cantabrie &amp; Asturies</button>
+    <button class="nav-link" onclick="showPage('optA')">Option A — Norte basque</button>
+    <button class="nav-link" onclick="showPage('optB')">Option B — Côte portugaise</button>
+    <button class="nav-link" onclick="showPage('optC')">Option C — Santiago ★</button>
+    <button class="nav-link" onclick="showPage('optD')">Option D — Cantabrie &amp; Asturies</button>
   </div>
   <div class="nav-sec">
     <div class="nav-sec-lbl">Décision</div>
-    <button class="nav-link" onclick="showPage('compare');closeNav()">Comparatif des 4 options</button>
+    <button class="nav-link" onclick="showPage('compare')">Comparatif des 4 options</button>
   </div>
-
 </nav>
 
 <!-- Main content -->
@@ -551,7 +542,7 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
         <tr><td>Poulpe galicien</td><td><em>Pulpo a la gallega</em></td><td><em>Polbo á feira</em></td><td><em>Polvo à galega</em></td></tr>
         <tr><td>C'était délicieux</td><td><em>Estaba delicioso</em></td><td><em>Estaba delicioso</em></td><td><em>Estava delicioso</em></td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <hr class="dv">
     <p class="sl">Les coutumes du Camino — le code non écrit</p>
@@ -1628,69 +1619,81 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 
 <script>
 // Remove landing from DOM entirely — once gone, it never comes back
+// ── Landing ──────────────────────────────────────────────────
+function isMobile(){ return window.innerWidth <= 768; }
+
 function dismissLanding(){
   const landing = document.getElementById('page-landing');
   if(landing) landing.remove();
-  document.getElementById('inner-wrap').style.display='flex';
+  const iw = document.getElementById('inner-wrap');
+  iw.style.display = isMobile() ? 'block' : 'flex';
+  const hdr = document.getElementById('mobHdr');
+  if(hdr) hdr.style.display = isMobile() ? 'flex' : 'none';
   sessionStorage.setItem('camino_visited','1');
 }
 
-// First visit of the session: show landing. Already navigated: skip to intro.
 (function(){
   if(sessionStorage.getItem('camino_visited')){
     dismissLanding();
     const t = document.getElementById('page-intro');
-    if(t){ t.classList.add('active'); }
-    document.querySelectorAll('.nav-link').forEach(l=>{
-      if((l.getAttribute('onclick')||'').includes("'intro'")){ l.classList.add('active'); }
-    });
-    updateBottomNav('intro');
+    if(t) t.classList.add('active');
+    syncNav('intro');
   }
+  // Resize handler : affiche/cache mob-hdr selon la largeur
+  function handleResize(){
+    const hdr = document.getElementById('mobHdr');
+    const iw = document.getElementById('inner-wrap');
+    if(!hdr || !iw || iw.style.display==='none') return;
+    const mob = window.innerWidth <= 768;
+    iw.style.display = mob ? 'block' : 'flex';
+    hdr.style.display = mob ? 'flex' : 'none';
+  }
+  window.addEventListener('resize', handleResize);
 })();
 
+// ── Page navigation ──────────────────────────────────────────
 function showPage(id){
   dismissLanding();
   document.querySelectorAll('#inner-wrap .page').forEach(p=>p.classList.remove('active'));
   const t = document.getElementById('page-'+id);
-  if(t){ t.classList.add('active'); }
+  if(t) t.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  document.querySelector('.main-content') && document.querySelector('.main-content').scrollTo(0,0);
-  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  syncNav(id);
+}
+
+function syncNav(id){
+  // Desktop sidebar active state
   document.querySelectorAll('.nav-link').forEach(l=>{
-    if((l.getAttribute('onclick')||'').includes("'"+id+"'")){ l.classList.add('active'); }
+    const oc = l.getAttribute('onclick')||'';
+    l.classList.toggle('active', oc.includes("'"+id+"'"));
   });
-  updateBottomNav(id);
-  closeRouteMenu();
+  // Mobile drawer active state
+  document.querySelectorAll('.mob-nav-btn').forEach(b=>{
+    const oc = b.getAttribute('onclick')||'';
+    b.classList.toggle('active', oc.includes("'"+id+"'"));
+  });
 }
-function toggleNav(){
-  document.getElementById('sidenav').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('on');
+
+// ── Mobile drawer ────────────────────────────────────────────
+function toggleDrawer(){
+  const drawer = document.getElementById('mobDrawer');
+  const overlay = document.getElementById('overlay');
+  const burger = document.getElementById('burgerBtn');
+  const isOpen = drawer.classList.contains('open');
+  drawer.classList.toggle('open', !isOpen);
+  overlay.classList.toggle('on', !isOpen);
+  burger.classList.toggle('open', !isOpen);
 }
-function closeNav(){
-  document.getElementById('sidenav').classList.remove('open');
+
+function closeDrawer(){
+  document.getElementById('mobDrawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('on');
+  document.getElementById('burgerBtn').classList.remove('open');
 }
-function toggleRouteMenu(){
-  const s=document.getElementById('routeSheet');
-  const o=document.getElementById('routeOverlay');
-  const open=s.style.display!=='none'&&s.style.display!=='';
-  s.style.display=open?'none':'block';
-  o.style.display=open?'none':'block';
-}
-function closeRouteMenu(){
-  document.getElementById('routeSheet').style.display='none';
-  document.getElementById('routeOverlay').style.display='none';
-}
-function updateBottomNav(id){
-  document.querySelectorAll('.bn-btn').forEach(b=>b.classList.remove('active'));
-  const map={'intro':0,'pratique':1,'compare':3};
-  const routes=['optA','optB','optC','optD'];
-  if(map[id]!==undefined){
-    document.querySelectorAll('.bn-btn')[map[id]].classList.add('active');
-  } else if(routes.includes(id)){
-    document.getElementById('routeBtn') && document.getElementById('routeBtn').classList.add('active');
-  }
-}
+
+// Desktop: keep toggleNav/closeNav as aliases (sidebar still used on desktop)
+function toggleNav(){ toggleDrawer(); }
+function closeNav(){ closeDrawer(); }
 </script>
 </body>
 </html>
