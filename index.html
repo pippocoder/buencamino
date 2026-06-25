@@ -47,25 +47,82 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .ndot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;position:relative;top:-1px}
 .sn-foot{margin-top:auto;padding:1.5rem 1.5rem 0;font-family:'Inter',sans-serif;font-size:10px;color:rgba(247,245,240,.18);line-height:1.6}
 
-/* MOBILE NAV */
-.mob-hdr{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--dark);height:52px;padding:0 1rem;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
-.mob-logo{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:.95rem}
-.burger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent;min-width:44px;min-height:44px;justify-content:center;align-items:center}
-.burger span{display:block;width:20px;height:2px;background:rgba(247,245,240,.8);border-radius:1px;transition:transform .25s,opacity .25s}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150}
-.nav-overlay.on{display:block}
-/* Mobile drawer — slides down from top bar */
-.mob-drawer{position:fixed;top:52px;left:0;right:0;background:var(--dark);z-index:299;border-bottom:1px solid rgba(255,255,255,.1);overflow:hidden;max-height:0;transition:max-height .3s ease}
-.mob-drawer.open{max-height:80vh;overflow-y:auto}
-.mob-drawer-inner{padding:.75rem 0 1.5rem}
-.mob-drawer .nav-sec-lbl{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,245,240,.22);padding:.75rem 1.25rem .35rem}
-.mob-drawer .mob-nav-btn{display:block;width:100%;background:none;border:none;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(247,245,240,.65);font-family:'Inter',sans-serif;font-size:14.5px;padding:.85rem 1.25rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s,color .1s}
-.mob-drawer .mob-nav-btn:last-child{border-bottom:none}
-.mob-drawer .mob-nav-btn:active,.mob-drawer .mob-nav-btn.active{background:rgba(232,184,75,.08);color:var(--gold)}
-.mob-drawer .mob-nav-btn.highlight{color:var(--gold);font-weight:500}
+/* MOBILE NAV — top bar + fullscreen panel, position:fixed hors layout */
+.mob-bar{
+  display:none;            /* caché sur desktop */
+  position:fixed;
+  top:0;left:0;right:0;
+  height:52px;
+  background:var(--dark);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  z-index:500;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 1rem;
+}
+.mob-bar-logo{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  color:var(--gold);
+  font-size:.95rem;
+}
+.mob-bar-btn{
+  display:flex;flex-direction:column;gap:5px;
+  background:none;border:none;
+  padding:8px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.mob-bar-btn span{
+  display:block;width:22px;height:2px;
+  background:rgba(247,245,240,.85);
+  border-radius:1px;
+  transition:transform .25s, opacity .2s;
+}
+/* Panel plein écran */
+.mob-panel{
+  display:none;            /* caché sur desktop */
+  position:fixed;
+  inset:0;
+  background:var(--dark);
+  z-index:499;
+  overflow-y:auto;
+  padding:70px 0 2rem;
+  opacity:0;
+  transform:translateY(-8px);
+  transition:opacity .2s ease, transform .2s ease;
+  pointer-events:none;
+}
+.mob-panel.open{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:all;
+}
+.mob-panel-link{
+  display:block;width:100%;
+  background:none;border:none;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  color:rgba(247,245,240,.75);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  padding:1rem 1.5rem;
+  text-align:left;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:color .1s, background .1s;
+}
+.mob-panel-link:active,
+.mob-panel-link.active{
+  color:var(--gold);
+  background:rgba(232,184,75,.07);
+}
+.mob-panel-lbl{
+  font-family:'Inter',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(247,245,240,.2);
+  padding:.85rem 1.5rem .3rem;
+  display:block;
+}
 
 /* MAIN */
 .main-content{margin-left:var(--nav-w);flex:1;min-width:0}
@@ -215,124 +272,105 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 .vd-txt{font-size:13.5px;line-height:1.6;color:#4a4740}
 .gbadge{display:inline-block;background:var(--gold);color:var(--ink);font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;margin-left:5px;vertical-align:middle}
 
-/* RESPONSIVE */
+/* RESPONSIVE ─────────────────────────────────── */
 @media(max-width:768px){
 
-  /* ── Navigation mobile : sidebar cachée, main sans marge ── */
-  .sidenav{display:none}
-  .main-content{margin-left:0}
-  /* Pages need top padding to clear fixed mob-hdr */
-  .hero{padding-top:calc(2rem + 52px)}
-  #page-landing .hero{padding-top:0}
+  /* Activer la top bar mobile */
+  .mob-bar{ display:flex; }
+  .mob-panel{ display:block; }
 
-  /* ── Landing ── */
-  #page-landing{padding:2rem 1.25rem;gap:0}
-  .l-codex{font-size:.85rem;max-width:100%}
-  .l-title{font-size:clamp(2.8rem,14vw,4.5rem)}
-  .l-names{gap:1rem;margin-bottom:1.25rem}
-  .l-name{font-size:1rem}
-  .l-btn{padding:.85rem 2rem;font-size:11px;width:100%;max-width:280px}
+  /* Cacher la sidebar desktop — complètement */
+  .sidenav{ display:none !important; }
 
-  /* ── Layout ── */
-  .page-body{padding:1.75rem 1rem 6rem}
-  .hero{padding:2rem 1rem 1.75rem}
-  .bsec{padding:2rem 1rem}
-  .cmp-hero{padding:2rem 1rem 1.75rem}
-  .cmp-body{padding:1.75rem 1rem 6rem}
-  .stats-wrap{padding:0 1rem}
+  /* inner-wrap devient block (plus de flex) */
+  #inner-wrap{ display:block !important; }
 
-  /* ── Typography ── */
-  body{font-size:15px;line-height:1.7}
-  h1.pt{font-size:clamp(1.6rem,6vw,2.2rem);line-height:1.15}
-  h2{font-size:1.2rem;margin:2rem 0 .7rem}
-  .lead{font-size:1rem;line-height:1.65}
-  .sl{font-size:9px;margin:1.75rem 0 .55rem}
-  p{margin-bottom:1rem}
-  .eyebrow{font-size:9px}
-  .pq{font-size:1rem;padding:.75rem 0 .75rem 1.1rem}
+  /* main-content : pleine largeur, espace pour la top bar fixe */
+  .main-content{
+    margin-left:0;
+    padding-top:52px;
+  }
 
-  /* ── Stats ── */
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .stat:nth-child(2n){border-right:none}
-  .stat{border-bottom:1px solid var(--border);padding:.9rem 1rem}
-  .stat-val{font-size:1.15rem}
+  /* Layout */
+  .page-body{ padding:1.75rem 1rem 4rem; }
+  .hero{ padding:2rem 1rem 1.75rem; }
+  .bsec{ padding:2rem 1rem; }
+  .cmp-hero{ padding:2rem 1rem 1.75rem; }
+  .cmp-body{ padding:1.75rem 1rem 4rem; }
+  .stats-wrap{ padding:0 1rem; }
 
-  /* ── Timeline ── */
-  .tl-wrap{margin:1rem -1rem;padding:1.25rem 1rem}
-  .tl-day{min-width:70px}
-  .tl-conn{width:36px}
-  .tl-pl{font-size:9px;max-width:66px}
+  /* Typography */
+  body{ font-size:15px; }
+  h1.pt{ font-size:clamp(1.55rem,5.5vw,2rem); line-height:1.15; }
+  h2{ font-size:1.2rem; margin:2rem 0 .7rem; }
+  .lead{ font-size:1rem; }
+  .sl{ font-size:9px; margin:1.5rem 0 .5rem; }
+  p{ margin-bottom:.95rem; }
+  .pq{ font-size:.95rem; padding:.75rem 0 .75rem 1rem; }
 
-  /* ── Day sections ── */
-  .day-sec{padding-top:1.75rem;margin-top:1.75rem}
-  .day-hdr{gap:.75rem;margin-bottom:1.1rem}
-  .day-num{font-size:2rem}
-  .day-ttl{font-size:1.1rem}
-  .kmb{font-size:9px;padding:2px 5px}
-  .tag{font-size:9px;padding:2px 6px}
-  hr.dv{margin:1.75rem 0}
+  /* Stats */
+  .stats{ grid-template-columns:repeat(2,1fr); }
+  .stat:nth-child(2n){ border-right:none; }
+  .stat{ border-bottom:1px solid var(--border); padding:.85rem .9rem; }
+  .stat-val{ font-size:1.1rem; }
 
-  /* ── Grids → single col ── */
-  .ig{grid-template-columns:1fr}
-  .lg-grid{grid-template-columns:1fr}
-  .btot{grid-template-columns:1fr}
-  .vd-grid{grid-template-columns:1fr}
+  /* Timeline scrollable */
+  .tl-wrap{ margin:1rem -1rem; padding:1.25rem 1rem; }
+  .tl-day{ min-width:68px; }
+  .tl-pl{ font-size:9px; max-width:64px; }
 
-  /* ── Lodging cards ── */
-  .lg{padding:.75rem .9rem}
-  .lg-name{font-size:13px}
-  .lg-note{font-size:11.5px}
+  /* Jours */
+  .day-sec{ padding-top:1.5rem; margin-top:1.5rem; }
+  .day-hdr{ gap:.65rem; margin-bottom:1rem; }
+  .day-num{ font-size:1.9rem; }
+  .day-ttl{ font-size:1.05rem; }
+  hr.dv{ margin:1.5rem 0; }
 
-  /* ── Gastro ── */
-  .gi{padding:.75rem 0;gap:.65rem}
-  .g-nm{font-size:13px}
-  .g-ds{font-size:13px}
+  /* Grilles → colonne unique */
+  .ig{ grid-template-columns:1fr; }
+  .lg-grid{ grid-template-columns:1fr; }
+  .btot{ grid-template-columns:1fr; }
+  .vd-grid{ grid-template-columns:1fr; }
 
-  /* ── Anecdote ── */
-  .anec{padding:.9rem 1.1rem;font-size:.87rem}
+  /* Tableaux scrollables */
+  .vt-wrap,.bt-wrap,.cmp-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:0 -1rem;
+    padding:0 1rem;
+  }
+  .vt{ font-size:12px; min-width:460px; }
+  .vt th,.vt td{ padding:.4rem .45rem; }
+  .bt{ font-size:12px; min-width:380px; }
+  .bt th,.bt td{ padding:.45rem .55rem; }
+  .cmp-tbl{ min-width:540px; font-size:11px; }
+  .cmp-tbl th,.cmp-tbl td{ padding:.45rem .35rem; }
 
-  /* ── Equipment list ── */
-  .eq-list li{font-size:13.5px;padding:.4rem 0}
-
-  /* ── Tables — scrollable containers ── */
-  .vt-wrap,.bt-wrap,.cmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1rem;padding:0 1rem}
-  .vt{font-size:12px;min-width:460px}
-  .vt th,.vt td{padding:.45rem .5rem}
-  .bt{font-size:12px;min-width:400px}
-  .bt th,.bt td{padding:.5rem .6rem}
-  .cmp-tbl{min-width:560px;font-size:11px}
-  .cmp-tbl th,.cmp-tbl td{padding:.5rem .4rem}
-  .cn{font-size:9px}
-  .rh{font-size:.8rem}
-
-  /* ── Budget ── */
-  .bti-amt{font-size:1.4rem}
-  .btot{gap:.9rem;margin-top:1.5rem}
-
-  /* ── Compare verdicts ── */
-  .vd{padding:1.1rem}
-  .vd-ttl{font-size:.95rem}
-  .vd-txt{font-size:13px}
-
-  /* ── Info grid ── */
-  .ic{padding:.9rem 1rem}
-  .ic-val{font-size:13.5px}
+  /* Divers */
+  .lg{ padding:.75rem .9rem; }
+  .lg-note{ font-size:11.5px; }
+  .gi{ padding:.7rem 0; }
+  .g-ds{ font-size:13px; }
+  .anec{ padding:.85rem 1rem; font-size:.86rem; }
+  .eq-list li{ font-size:13.5px; }
+  .ic{ padding:.85rem .9rem; }
+  .ic-val{ font-size:13.5px; }
+  .bti-amt{ font-size:1.4rem; }
+  .btot{ gap:.85rem; margin-top:1.25rem; }
+  .vd{ padding:1rem; }
+  .vd-ttl{ font-size:.9rem; }
+  .vd-txt{ font-size:13px; }
 }
 
-/* Very small screens */
-@media(max-width:380px){
-  .l-title{font-size:2.5rem}
-  .l-names{flex-direction:column;align-items:center;gap:.5rem}
-  h1.pt{font-size:1.5rem}
-  .day-num{font-size:1.75rem}
-  .page-body{padding:1.5rem .85rem 6rem}
-  .hero{padding:1.75rem .85rem 1.5rem}
-  .bsec{padding:1.75rem .85rem}
-  .cmp-body{padding:1.5rem .85rem 6rem}
+/* Très petits écrans */
+@media(max-width:360px){
+  .l-title{ font-size:2.6rem; }
+  h1.pt{ font-size:1.45rem; }
+  .day-num{ font-size:1.6rem; }
+  .page-body{ padding:1.5rem .85rem 4rem; }
+  .hero{ padding:1.75rem .85rem 1.5rem; }
 }
-
-/* bottom-nav supprimé — navigation via drawer uniquement sur mobile */
-</style>
+</style></style>
 </head>
 <body>
 
@@ -348,30 +386,29 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 </div>
 
 <!-- INNER WRAPPER -->
-<!-- Mobile top bar — hors du layout flex -->
-<div class="mob-hdr" id="mobHdr" style="display:none">
-  <span class="mob-logo">Buen Camino</span>
-  <button class="burger" id="burgerBtn" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+<!-- ═══ MOBILE TOP BAR (fixed, hors layout) ═══ -->
+<div class="mob-bar" id="mobBar">
+  <span class="mob-bar-logo">Buen Camino</span>
+  <button class="mob-bar-btn" id="mobBtn" onclick="togglePanel()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 
-<!-- Mobile drawer — hors du layout flex -->
-<div class="mob-drawer" id="mobDrawer">
-  <div class="mob-drawer-inner">
-    <div class="nav-sec-lbl">Le Chemin</div>
-    <button class="mob-nav-btn" onclick="showPage('intro');closeDrawer()">Introduction</button>
-    <button class="mob-nav-btn" onclick="showPage('pratique');closeDrawer()">Guide pratique</button>
-    <div class="nav-sec-lbl" style="margin-top:.5rem">Les itinéraires</div>
-    <button class="mob-nav-btn" onclick="showPage('optA');closeDrawer()">Option A — Norte basque</button>
-    <button class="mob-nav-btn" onclick="showPage('optB');closeDrawer()">Option B — Côte portugaise</button>
-    <button class="mob-nav-btn highlight" onclick="showPage('optC');closeDrawer()">Option C — Santiago ★</button>
-    <button class="mob-nav-btn" onclick="showPage('optD');closeDrawer()">Option D — Cantabrie &amp; Asturies</button>
-    <div class="nav-sec-lbl" style="margin-top:.5rem">Décision</div>
-    <button class="mob-nav-btn" onclick="showPage('compare');closeDrawer()">Comparatif des 4 options</button>
-  </div>
+<!-- ═══ MOBILE PANEL (fullscreen overlay, hors layout) ═══ -->
+<div class="mob-panel" id="mobPanel">
+  <span class="mob-panel-lbl">Le Chemin</span>
+  <button class="mob-panel-link" onclick="navTo('intro')">Introduction</button>
+  <button class="mob-panel-link" onclick="navTo('pratique')">Guide pratique</button>
+  <span class="mob-panel-lbl">Les itinéraires</span>
+  <button class="mob-panel-link" onclick="navTo('optA')">Option A — Norte basque</button>
+  <button class="mob-panel-link" onclick="navTo('optB')">Option B — Côte portugaise</button>
+  <button class="mob-panel-link" onclick="navTo('optC')">Option C — Santiago ★</button>
+  <button class="mob-panel-link" onclick="navTo('optD')">Option D — Cantabrie &amp; Asturies</button>
+  <span class="mob-panel-lbl">Décision</span>
+  <button class="mob-panel-link" onclick="navTo('compare')">Comparatif des 4 options</button>
 </div>
-<div class="nav-overlay" id="overlay" onclick="closeDrawer()"></div>
 
-<!-- inner-wrap : flex container desktop (sidenav + main-content uniquement) -->
+<!-- ═══ LAYOUT DESKTOP : inner-wrap (flex) contient sidenav + main-content ═══ -->
 <div id="inner-wrap" style="display:none">
 
 <!-- Desktop sidebar -->
@@ -1618,82 +1655,94 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 </div><!-- /inner-wrap -->
 
 <script>
-// Remove landing from DOM entirely — once gone, it never comes back
-// ── Landing ──────────────────────────────────────────────────
+// ── Utilitaire ───────────────────────────────────────────────
 function isMobile(){ return window.innerWidth <= 768; }
 
+// ── Landing ──────────────────────────────────────────────────
 function dismissLanding(){
-  const landing = document.getElementById('page-landing');
-  if(landing) landing.remove();
+  const el = document.getElementById('page-landing');
+  if(el) el.remove();
   const iw = document.getElementById('inner-wrap');
   iw.style.display = isMobile() ? 'block' : 'flex';
-  const hdr = document.getElementById('mobHdr');
-  if(hdr) hdr.style.display = isMobile() ? 'flex' : 'none';
   sessionStorage.setItem('camino_visited','1');
 }
 
+// Au chargement : si déjà visité, sauter la landing
 (function(){
   if(sessionStorage.getItem('camino_visited')){
     dismissLanding();
-    const t = document.getElementById('page-intro');
-    if(t) t.classList.add('active');
-    syncNav('intro');
+    activatePage('intro');
   }
-  // Resize handler : affiche/cache mob-hdr selon la largeur
-  function handleResize(){
-    const hdr = document.getElementById('mobHdr');
+  // Resize : recalculer display si on bascule desktop/mobile
+  window.addEventListener('resize', function(){
     const iw = document.getElementById('inner-wrap');
-    if(!hdr || !iw || iw.style.display==='none') return;
-    const mob = window.innerWidth <= 768;
-    iw.style.display = mob ? 'block' : 'flex';
-    hdr.style.display = mob ? 'flex' : 'none';
-  }
-  window.addEventListener('resize', handleResize);
+    if(!iw || iw.style.display === 'none') return;
+    iw.style.display = isMobile() ? 'block' : 'flex';
+  });
 })();
 
-// ── Page navigation ──────────────────────────────────────────
+// ── Navigation principale ────────────────────────────────────
+function activatePage(id){
+  // Afficher la bonne page
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if(target) target.classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Sidebar desktop : lien actif
+  document.querySelectorAll('.nav-link').forEach(l => {
+    const oc = l.getAttribute('onclick') || '';
+    l.classList.toggle('active', oc.includes("'" + id + "'"));
+  });
+
+  // Panel mobile : lien actif
+  document.querySelectorAll('.mob-panel-link').forEach(b => {
+    const oc = b.getAttribute('onclick') || '';
+    b.classList.toggle('active', oc.includes("'" + id + "'"));
+  });
+}
+
+// showPage : appelé depuis la sidebar desktop
 function showPage(id){
   dismissLanding();
-  document.querySelectorAll('#inner-wrap .page').forEach(p=>p.classList.remove('active'));
-  const t = document.getElementById('page-'+id);
-  if(t) t.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-  syncNav(id);
+  activatePage(id);
 }
 
-function syncNav(id){
-  // Desktop sidebar active state
-  document.querySelectorAll('.nav-link').forEach(l=>{
-    const oc = l.getAttribute('onclick')||'';
-    l.classList.toggle('active', oc.includes("'"+id+"'"));
-  });
-  // Mobile drawer active state
-  document.querySelectorAll('.mob-nav-btn').forEach(b=>{
-    const oc = b.getAttribute('onclick')||'';
-    b.classList.toggle('active', oc.includes("'"+id+"'"));
-  });
+// navTo : appelé depuis le panel mobile — ferme le panel puis navigue
+function navTo(id){
+  closePanel();
+  dismissLanding();
+  activatePage(id);
 }
 
-// ── Mobile drawer ────────────────────────────────────────────
-function toggleDrawer(){
-  const drawer = document.getElementById('mobDrawer');
-  const overlay = document.getElementById('overlay');
-  const burger = document.getElementById('burgerBtn');
-  const isOpen = drawer.classList.contains('open');
-  drawer.classList.toggle('open', !isOpen);
-  overlay.classList.toggle('on', !isOpen);
-  burger.classList.toggle('open', !isOpen);
+// ── Panel mobile ─────────────────────────────────────────────
+function togglePanel(){
+  const panel = document.getElementById('mobPanel');
+  const isOpen = panel.classList.contains('open');
+  isOpen ? closePanel() : openPanel();
 }
 
-function closeDrawer(){
-  document.getElementById('mobDrawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('on');
-  document.getElementById('burgerBtn').classList.remove('open');
+function openPanel(){
+  document.getElementById('mobPanel').classList.add('open');
+  // Animer le burger → croix
+  const spans = document.querySelectorAll('.mob-bar-btn span');
+  if(spans[0]) spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+  if(spans[1]) spans[1].style.opacity = '0';
+  if(spans[2]) spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
 }
 
-// Desktop: keep toggleNav/closeNav as aliases (sidebar still used on desktop)
-function toggleNav(){ toggleDrawer(); }
-function closeNav(){ closeDrawer(); }
+function closePanel(){
+  document.getElementById('mobPanel').classList.remove('open');
+  // Remettre le burger
+  const spans = document.querySelectorAll('.mob-bar-btn span');
+  if(spans[0]) spans[0].style.transform = '';
+  if(spans[1]) spans[1].style.opacity = '';
+  if(spans[2]) spans[2].style.transform = '';
+}
+
+// Compatibilité : anciens appels toggleNav/closeNav depuis des boutons résiduels
+function toggleNav(){ togglePanel(); }
+function closeNav(){ closePanel(); }
 </script>
 </body>
 </html>
